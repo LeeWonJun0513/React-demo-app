@@ -1,0 +1,15 @@
+The project consists of 
+React + React-Router + Sass + Webpack + Yarn
+
+let's get it
+----------------------------------
+npm intall 
+
+for yarn 
+
+npm install --global yarn
+yarn self-update
+
+yarn
+yarn run dev
+yarn run dist or yarn run dist_win
