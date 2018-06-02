@@ -1,115 +1,119 @@
-/*
-* @Author: Rosen
-* @Date:   2018-01-31 13:10:47
-* @Last Modified by:   Rosen
-* @Last Modified time: 2018-02-01 16:30:04
-*/
-import React        from 'react';
-import { Link }     from 'react-router-dom';
-import MUtil        from 'util/mm.jsx'
-import Product      from 'service/product-service.jsx'
 
-import PageTitle    from 'component/page-title/index.jsx';
-import ListSearch   from './index-list-search.jsx';
-import TableList    from 'util/table-list/index.jsx';
-import Pagination   from 'util/pagination/index.jsx';
 
-import './index.scss';
 
-const _mm           = new MUtil();
-const _product      = new Product();
+
+import React from 'react';
+import {Link} from 'react-router-dom';
+
+import MUtil from 'util/mm.jsx';
+import Product  from 'service/product-service.jsx';
+
+import PageTitle from 'component/page-title/index.jsx';
+import Pagination from'util/pagination/index.jsx';
+import TableList from "util/table-list/index.jsx";
+import ListSearch from "./index-list-search.jsx";
+
+const _mm = new MUtil();
+const _product = new Product();
+
+import './index.scss'
+
 
 class ProductList extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            list            : [],
-            pageNum         : 1,
-            listType        : 'list'
-        };
+            list:[],
+            pageNum:1,
+            listType : 'list'
+        }
     }
     componentDidMount(){
-        this.loadProductList();
+        this.loadProductList()
     }
-    // 加载商品列表
+
+    // Loading product list
     loadProductList(){
         let listParam = {};
         listParam.listType = this.state.listType;
-        listParam.pageNum  = this.state.pageNum;
-        // 如果是搜索的话，需要传入搜索类型和搜索关键字
+        listParam.pageNum = this.state.pageNum;
+        // If it is a search, it needs incoming search type and search key
         if(this.state.listType === 'search'){
             listParam.searchType = this.state.searchType;
-            listParam.keyword    = this.state.searchKeyword;
+            listParam.keyword = this.state.searchKeyWord;
         }
-        // 请求接口
+        // Request interface
         _product.getProductList(listParam).then(res => {
             this.setState(res);
-        }, errMsg => {
+        },errMsg => {
             this.setState({
-                list : []
+                list: []
             });
             _mm.errorTips(errMsg);
         });
     }
-    // 搜索
-    onSearch(searchType, searchKeyword){
-        let listType = searchKeyword === '' ? 'list' : 'search';
+
+    // search for
+    onSearch(searchType,searchKeyWord){
+        let listType = searchKeyWord === '' ? 'list' : 'search';
         this.setState({
-            listType        : listType,
-            pageNum         : 1,
-            searchType      : searchType,
-            searchKeyword   : searchKeyword
-        }, () => {
+            listType : listType,
+            pageNum  : 1,
+            searchType: searchType,
+            searchKeyWord:searchKeyWord
+        },() => {
             this.loadProductList();
         });
     }
-    // 页数发生变化的时候
+
+    // When the number of pages changes
     onPageNumChange(pageNum){
         this.setState({
-            pageNum : pageNum
-        }, () => {
-            this.loadProductList();
+            pageNum:pageNum
+        },() => {
+            this.loadUserList();
         });
     }
-    // 改变商品状态，上架 / 下架
-    onSetProductStatus(e, productId, currentStatus){
+    // Change product status, shelves, shelves
+    onSetProductStatus(e,productId,currentStatus){
         let newStatus   = currentStatus == 1 ? 2 : 1,
-            confrimTips = currentStatus == 1 
-                ? '确定要下架该商品？' : '确定要上架该商品？';
-        if(window.confirm(confrimTips)){
+            confirmTips = currentStatus == 1 ? '确定要下架该商品' : '确定要上架该商品';
+
+        if(window.confirm(confirmTips)){
             _product.setProductStatus({
-                productId: productId,
-                status: newStatus
+                productId:productId,
+                status   :newStatus
             }).then(res => {
                 _mm.successTips(res);
                 this.loadProductList();
-            }, errMsg => {
-                _mm.errorTips(res);
+            },errMsg => {
+                _mm.errorTips(errMsg);
             });
         }
     }
+
     render(){
         let tableHeads = [
-            {name: '商品ID', width: '10%'},
-            {name: '商品信息', width: '50%'},
-            {name: '价格', width: '10%'},
-            {name: '状态', width: '15%'},
-            {name: '操作', width: '15%'},
+            {name:'Product ID',width:'10%'},
+            {name:'Product Information',width:'50%'},
+            {name:'price',width:'10%'},
+            {name:'status',width:'15%'},
+            {name:'operating',width:'15%'}
         ];
-        return (
+        return(
             <div id="page-wrapper">
-                <PageTitle title="商品列表">
+                <PageTitle title="Product list">
                     <div className="page-header-right">
                         <Link to="/product/save" className="btn btn-primary">
                             <i className="fa fa-plus"></i>
-                            <span>添加商品</span>
+                            <span>Adding goods</span>
                         </Link>
                     </div>
                 </PageTitle>
-                <ListSearch onSearch={(searchType, searchKeyword) => {this.onSearch(searchType, searchKeyword)}}/>
+                <ListSearch onSearch={(searchType,searchKeyWord) => {this.onSearch(searchType,searchKeyWord)}}/>
                 <TableList tableHeads={tableHeads}>
                     {
-                        this.state.list.map((product, index) => {
+                        this.state.list.map((product,index) => {
                             return (
                                 <tr key={index}>
                                     <td>{product.id}</td>
@@ -119,21 +123,23 @@ class ProductList extends React.Component{
                                     </td>
                                     <td>￥{product.price}</td>
                                     <td>
-                                        <p>{product.status == 1 ? '在售' : '已下架'}</p>
-                                        <button className="btn btn-xs btn-warning" 
-                                            onClick={(e) => {this.onSetProductStatus(e, product.id, product.status)}}>{product.status == 1 ? '下架' : '上架'}</button>
+                                        <p>{product.status == 1 ? 'in stock' : 'Has been removed'}</p>
+                                        <button className="btn btn-xs btn-warning"
+                                                onClick={(e) => {this.onSetProductStatus(e,product.id,product.status)}}>{product.status == 1 ? 'Drop off' : 'on selves'}
+                                        </button>
                                     </td>
                                     <td>
-                                        <Link className="opear" to={ `/product/detail/${product.id}` }>详情</Link>
-                                        <Link className="opear" to={ `/product/save/${product.id}` }>编辑</Link>
+                                        <Link className='operate' to={`/product/detail/${product.id}`}>Detailss</Link>
+                                        <Link className='operate' to={`/product/save/${product.id}`}>edit</Link>
                                     </td>
                                 </tr>
                             );
                         })
                     }
                 </TableList>
-                <Pagination current={this.state.pageNum} 
-                    total={this.state.total} 
+                <Pagination
+                    current={this.state.pageNum}
+                    total={this.state.total}
                     onChange={(pageNum) => this.onPageNumChange(pageNum)}/>
             </div>
         );

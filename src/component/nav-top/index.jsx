@@ -1,16 +1,15 @@
-/*
-* @Author: Rosen
-* @Date:   2018-01-23 19:59:56
-* @Last Modified by:   Rosen
-* @Last Modified time: 2018-01-26 12:49:37
-*/
-import React        from 'react';
-import { Link }     from 'react-router-dom';
-import MUtil        from 'util/mm.jsx'
-import User         from 'service/user-service.jsx'
 
-const _mm   = new MUtil();
+
+
+import React        from 'react';
+import {Link}       from 'react-router-dom';
+
+import MUtil from 'util/mm.jsx';
+import User  from 'service/user-service.jsx';
+
+const _mm = new MUtil();
 const _user = new User();
+
 
 class NavTop extends React.Component{
     constructor(props){
@@ -19,30 +18,30 @@ class NavTop extends React.Component{
             username: _mm.getStorage('userInfo').username || ''
         }
     }
-    // 退出登录
+    // This is exit sign-in
     onLogout(){
         _user.logout().then(res => {
             _mm.removeStorage('userInfo');
+            // This.props.history.push('/login'); This component props has no history attribute (requires router pass).
             window.location.href = '/login';
-        }, errMsg => {
+        },errMsg => {
             _mm.errorTips(errMsg);
         });
     }
     render(){
-        return (
+        return(
             <div className="navbar navbar-default top-navbar">
                 <div className="navbar-header">
-                    <Link className="navbar-brand" to="/"><b>HAPPY</b>MMALL</Link>
+                    <Link className="navbar-brand" to="index.html"><b>SHOPPING</b>MALL</Link>
                 </div>
-
                 <ul className="nav navbar-top-links navbar-right">
                     <li className="dropdown">
                         <a className="dropdown-toggle" href="javascript:;">
                             <i className="fa fa-user fa-fw"></i>
                             {
                                 this.state.username
-                                ? <span>欢迎，{this.state.username}</span>
-                                : <span>欢迎您</span>
+                                ? <span>welcome, {this.state.username} 님</span>
+                                : <span>Welcome</span>
                             }
                             <i className="fa fa-caret-down"></i>
                         </a>
@@ -50,7 +49,7 @@ class NavTop extends React.Component{
                             <li>
                                 <a onClick={() => {this.onLogout()}}>
                                     <i className="fa fa-sign-out fa-fw"></i>
-                                    <span>退出登录</span>
+                                    <span>sign out</span>
                                 </a>
                             </li>
                         </ul>

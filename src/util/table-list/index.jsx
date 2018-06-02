@@ -1,29 +1,27 @@
-/*
-* @Author: Rosen
-* @Date:   2018-01-31 13:25:05
-* @Last Modified by:   Rosen
-* @Last Modified time: 2018-01-31 20:52:46
-*/
-import React            from 'react';
 
-// 通用的列表
+
+
+
+import React from 'react';
+
+// Universal list
 class TableList extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            isFirstLoading: true
+            isFirstLoading:true
         }
     }
     componentWillReceiveProps(){
-        // 列表只有在第一次挂载的时候，isFirstLoading为true，其他情况为false
+        // The list is only loaded for the first time, isFirstLoading is true, other conditions are false
         this.setState({
-            isFirstLoading : false
+            isFirstLoading:false
         });
     }
     render(){
-        // 表头信息
+        // Header information
         let tableHeader = this.props.tableHeads.map(
-            (tableHead, index) => {
+            (tableHead,index) => {
                 if(typeof tableHead === 'object'){
                     return <th key={index} width={tableHead.width}>{tableHead.name}</th>
                 }else if(typeof tableHead === 'string'){
@@ -31,27 +29,29 @@ class TableList extends React.Component{
                 }
             }
         );
-        // 列表内容
+        // List content
         let listBody = this.props.children;
-        // 列表的信息
+
+        // List information
         let listInfo = (
             <tr>
                 <td colSpan={this.props.tableHeads.length} className="text-center">
-                    {this.state.isFirstLoading ? '正在加载数据...' : '没有找到相应的结果~'}</td>
+                    {this.state.isFirstLoading ? 'Loading...' : 'No results found'}
+                </td>
             </tr>
         );
-        let tableBody = listBody.length > 0 ? listBody : listInfo;
-        return (
+        let tableBody = listBody.length >0 ? listBody : listInfo;
+        return(
             <div className="row">
                 <div className="col-md-12">
                     <table className="table table-striped table-bordered">
                         <thead>
-                            <tr>
-                                {tableHeader}
-                            </tr>
+                        <tr>
+                            {tableHeader}
+                        </tr>
                         </thead>
                         <tbody>
-                            {tableBody}
+                        {tableBody}
                         </tbody>
                     </table>
                 </div>

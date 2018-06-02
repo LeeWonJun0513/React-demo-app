@@ -1,68 +1,63 @@
-/*
-* @Author: Rosen
-* @Date:   2018-01-19 23:22:32
-* @Last Modified by:   Rosen
-* @Last Modified time: 2018-01-20 00:11:34
-*/
+
 
 // 页面路由
-window.location.href = 'http://www.baidu.com';
+window.location.href = 'http://www.iwmake.com';
 history.back();
 
-// hash 路由
+// hash路由
 window.location = '#hash';
-window.onhashchange = function(){
-    console.log('current hash:', window.location.hash);
-}
+window.onHashChange = function () {
+    console.log('current hash:',window.location.hash);
+};
 
-// h5 路由
+// H5 路由
 // 推进一个状态
-history.pushState('name', 'title', '/path');
+history.pushState('name','title','/path');
 // 替换一个状态
-history.replaceState('name', 'title', '/path');
-// popstate
-window.onpopstate = function(){
+history.replaceState('name','title','/path');
+// popsate
+window.onPopState = function () {
     console.log(window.location.href);
     console.log(window.location.pathname);
     console.log(window.location.hash);
     console.log(window.location.search);
-}
+};
 
-
-// react-router
+// React-Router
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
-
+import {BrowserRouter as Router,Route,Link,Switch} from 'react-router-dom';
 
 class A extends React.Component{
     constructor(props){
-        super(props)
+        super(props);
     }
     render(){
         return (
             <div>
-            Component A
-            
-            <Switch>
-                <Route exact path={`${this.props.match.path}`} render={(route) => {
-                    return <div>当前组件是不带参数的A</div>
-                }}/>
-                <Route path={`${this.props.match.path}/sub`} render={(route) => {
-                    return <div>当前组件是Sub</div>
-                }}/>
-                <Route path={`${this.props.match.path}/:id`} render={(route) => {
-                    return <div>当前组件是带参数的A, 参数是：{route.match.params.id}</div>
-                }}/>
-            </Switch>
+                Component A
+                <Switch>
+                    <Route exact path={`${this.props.match.path}`}
+                           render={(route) => {
+                               return <div>当前组件是不带参数的A</div>}
+                           }/>
+                    <Route path={`${this.props.match.path}/sub`}
+                           render={(route) => {
+                               return <div>当前组件是Sub</div>}
+                           }/>
+                    <Route path={`${this.props.match.path}/:id`}
+                           render={(route) => {
+                               return <div>当前组件是带参数的A,参数是：{route.match.params.id}</div>}
+                           }/>
+                </Switch>
             </div>
-        )
+        );
     }
 }
 
 class B extends React.Component{
     constructor(props){
-        super(props)
+        super(props);
     }
     render(){
         return <div>Component B</div>
@@ -71,7 +66,7 @@ class B extends React.Component{
 
 class Wrapper extends React.Component{
     constructor(props){
-        super(props)
+        super(props);
     }
     render(){
         return (

@@ -1,19 +1,15 @@
-/*
-* @Author: Rosen
-* @Date:   2018-01-23 19:54:57
-* @Last Modified by:   Rosen
-* @Last Modified time: 2018-01-26 13:34:57
-*/
+
+
 .color-box{
     display: block;
     height: 160px;
     text-align: center;
     padding: 20px 0;
-    opacity: .9;
+    opacity:.9;
     transition: all .3s;
     &:hover{
         text-decoration: none;
-        color: #555;
+        color:#555;
         opacity: 1;
         transform: scale(1.08);
     }

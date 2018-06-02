@@ -1,14 +1,14 @@
 {
-  "name": "admin-v2-fe",
+  "name": "shoppingmall-admin-react",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "git@gitee.com:happymmall/admin-v2-fe.git",
-  "author": "Rosen <gaorunsheng1@126.com>",
+  "repository": "https://github.com/AlphaIX/shoppingmall-admin-react.git",
+  "author": "AlphaIX <m.ydy@foxmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev"       : "node_modules/.bin/webpack-dev-server",
-    "dist"      : "WEBPACK_ENV=online node_modules/.bin/webpack -p",
-    "dist_win"  : "set WEBPACK_ENV=online&& node_modules/.bin/webpack -p"
+    "dev": "node_modules/.bin/webpack-dev-server",
+    "dist": "WEBPACK_ENV=online node_modules/.bin/webpack -p",
+    "dist_win": "set WEBPACK_ENV=online&& node_modules/.bin/webpack -p"
   },
   "devDependencies": {
     "babel-core": "6.26.0",
@@ -29,8 +29,8 @@
   "dependencies": {
     "prop-types": "15.6.0",
     "rc-pagination": "1.15.1",
-    "react": "16.2.0",
-    "react-dom": "16.2.0",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
     "react-router-dom": "4.2.2",
     "simditor": "^2.3.6"
   }

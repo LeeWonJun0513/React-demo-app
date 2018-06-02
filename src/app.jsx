@@ -1,28 +1,24 @@
-/*
-* @Author: Rosen
-* @Date:   2018-01-13 11:27:21
-* @Last Modified by:   Rosen
-* @Last Modified time: 2018-02-05 14:02:20
-*/  
 
-import React            from 'react';
-import ReactDOM         from 'react-dom';
-import { BrowserRouter as Router, Switch, Redirect, Route, Link } from 'react-router-dom'
 
-import Layout           from 'component/layout/index.jsx';
-// 页面
-import Home             from 'page/home/index.jsx';
-import ProductRouter    from 'page/product/router.jsx';
-import Login            from 'page/login/index.jsx';
-import OrderList        from 'page/order/index.jsx';
-import OrderDetail      from 'page/order/detail.jsx';
-import UserList         from 'page/user/index.jsx';
-import ErrorPage        from 'page/error/index.jsx';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {BrowserRouter as Router,Route,Redirect,Link,Switch} from 'react-router-dom';
+
+import Layout from 'component/layout/index.jsx';
+// page
+import Home         from 'page/home/index.jsx';
+import ProductRouter  from 'page/product/router.jsx';
+import Login        from 'page/login/index.jsx';
+import UserList     from 'page/user/index.jsx';
+import ErrorPage    from 'page/error/index.jsx';
+import OrderList from "page/order/index.jsx";
+import OrderDetail from "page/order/detail.jsx";
 
 class App extends React.Component{
+
     render(){
         let LayoutRouter = (
-            <Layout> 
+            <Layout>
                 <Switch>
                     <Route exact path="/" component={Home}/>
                     <Route path="/product" component={ProductRouter}/>
@@ -36,19 +32,20 @@ class App extends React.Component{
                 </Switch>
             </Layout>
         );
-        return (
+        return(
             <Router>
                 <Switch>
-                    <Route path="/login" component={Login}/>
-                    <Route path="/" render={ props => LayoutRouter}/>
+                    <Route path = "/login" component={Login}/>
+                    <Route path = "/" render={props => (
+                        LayoutRouter
+                    )}/>
                 </Switch>
             </Router>
-        )
+        );
     }
 }
 
-
 ReactDOM.render(
-    <App />,
+    <App/>,
     document.getElementById('app')
 );

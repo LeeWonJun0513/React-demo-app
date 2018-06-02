@@ -6,7 +6,7 @@ http://creativecommons.org/licenses/by/3.0/
 
 
 /*----------------------------------------------
-    COMMON  STYLES    
+    COMMON  STYLES
 ------------------------------------------------*/
 body {
     font-family: 'Open Sans', sans-serif;
@@ -102,11 +102,11 @@ p {
     padding: 0;
     margin-bottom: 20px;
     list-style: none;
-/* background-color: #FAFAFA; */
+    /* background-color: #FAFAFA; */
     border-radius: 0;
 }
 /*----------------------------------------------
-   DASHBOARD STYLES    
+   DASHBOARD STYLES
 ------------------------------------------------*/
 .page-header {
     padding-bottom: 9px;
@@ -280,7 +280,7 @@ p {
     font-size: 16px;
     line-height: 30px;
 }
-     /*CHAT PANEL*/
+/*CHAT PANEL*/
 /*Charts*/
 
 .main-chart {
@@ -367,7 +367,7 @@ footer p {
     font-size: 14px;
 }
 /*----------------------------------------------
-    MENU STYLES    
+    MENU STYLES
 ------------------------------------------------*/
 
 
@@ -576,11 +576,11 @@ ul.nav.nav-second-level.collapse.in {
     color: #666;
 }
 /*----------------------------------------------
-    UI ELEMENTS STYLES     
+    UI ELEMENTS STYLES
 ------------------------------------------------*/
 .btn-circle {
     width: 50px;
-    height: 50px; 
+    height: 50px;
     padding: 6px 0;
     -webkit-border-radius: 25px;
     -moz-border-radius: 25px;
@@ -591,9 +591,9 @@ ul.nav.nav-second-level.collapse.in {
 }
 
 /*----------------------------------------------
-    MEDIA QUERIES     
+    MEDIA QUERIES
 ------------------------------------------------*/
- 
+
 @media(max-width:768px) {
 
     .top-navbar{
@@ -602,7 +602,7 @@ ul.nav.nav-second-level.collapse.in {
     .top-navbar .navbar-brand{
         width: 100%;
     }
-    
+
 
     .navbar-side {
         z-index: 1;

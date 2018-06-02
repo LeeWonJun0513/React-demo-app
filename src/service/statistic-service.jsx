@@ -1,18 +1,15 @@
-/*
-* @Author: Rosen
-* @Date:   2018-01-26 13:38:21
-* @Last Modified by:   Rosen
-* @Last Modified time: 2018-01-26 13:39:45
-*/
-import MUtil        from 'util/mm.jsx'
 
-const _mm   = new MUtil();
+
+
+import MUtil from 'util/mm.jsx';
+
+const _mm = new MUtil();
 
 class Statistic{
-    // 首页数据统计
+    // Home Statistics
     getHomeCount(){
         return _mm.request({
-            url: '/manage/statistic/base_count.do'
+            url:'/manage/statistic/base_count.do'
         });
     }
 }

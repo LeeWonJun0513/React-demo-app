@@ -1,105 +1,105 @@
-/*
-* @Author: Rosen
-* @Date:   2018-02-04 22:12:52
-* @Last Modified by:   Rosen
-* @Last Modified time: 2018-02-04 22:36:57
-*/
-import React        from 'react';
-import MUtil        from 'util/mm.jsx'
-import Product      from 'service/product-service.jsx'
 
-import PageTitle    from 'component/page-title/index.jsx';
 
-const _mm           = new MUtil();
-const _product      = new Product();
+import React from 'react';
+
+import MUtil from 'util/mm.jsx';
+import Product  from 'service/product-service.jsx';
+
+import PageTitle from 'component/page-title/index.jsx';
+
+const _mm = new MUtil();
+const _product = new Product();
 
 
 class CategoryAdd extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            categoryList    : [],
-            parentId        : 0,
-            categoryName    : ''
-        };
+            categoryList:[],
+            parentId:0,
+            categoryName:''
+        }
     }
     componentDidMount(){
-        this.loadCategoryList();
+        this.loadCategoryList()
     }
-    // 加载品类列表,显示父品类列表
+
+    // Load category list, show parent category list
     loadCategoryList(){
         _product.getCategoryList().then(res => {
             this.setState({
-                categoryList : res
+                categoryList:res
             });
-        }, errMsg => {
+
+        },errMsg => {
+            this.setState({
+                list: []
+            });
             _mm.errorTips(errMsg);
         });
     }
-    // 表单的值发生变化
+
     onValueChange(e){
-        let name    = e.target.name,
-            value   = e.target.value;
+        let name = e.target.name,
+            value = e.target.value.trim();
         this.setState({
-            [name] : value
+            [name]:value
         });
     }
-    // 提交
+
     onSubmit(e){
         let categoryName = this.state.categoryName.trim();
-        // 品类名称不为空，提交数据
-        if(categoryName){
+        if(categoryName){// Commodity category is not empty submit data
             _product.saveCategory({
-                parentId        : this.state.parentId,
-                categoryName    : categoryName
+                parentId:this.state.parentId,
+                categoryName:this.state.categoryName
             }).then((res) => {
                 _mm.successTips(res);
-                this.props.history.push('/product-category/index');
-            }, (errMsg) => {
+                this.props.history.push('/product-category/index')
+            },(errMsg) => {
                 _mm.errorTips(errMsg);
             });
-        }
-        // 否则，提示错误
-        else{
-            _mm.errorTips('请输入品类名称');
+        }else{// Otherwise, error
+            _mm.errorTips("请输入品类名称");
         }
     }
+
     render(){
-        return (
+        return(
             <div id="page-wrapper">
-                <PageTitle title="品类列表"/>
+                <PageTitle title="添加品类"/>
                 <div className="row">
                     <div className="col-md-12">
                         <div className="form-horizontal">
                             <div className="form-group">
-                                <label className="col-md-2 control-label">所属品类</label>
-                                <div className="col-md-5">
-                                    <select name="parentId" 
-                                        className="form-control"
-                                        onChange={(e) => this.onValueChange(e)}>
-                                        <option value="0">根品类/</option>
+                                <label className="col-sm-2 control-label">Belonging category</label>
+                                <div className="col-sm-5">
+                                    <select name="parentId"
+                                            onChange={(e) => this.onValueChange(e)}
+                                            className="form-control">
+                                        <option value="0">Root category</option>
                                         {
-                                            this.state.categoryList.map((category, index) => {
-                                                return <option value={category.id} key={index}>根品类/{category.name}</option>
+                                            this.state.categoryList.map((category,index) => {
+                                                return <option key={index} value={category.id}>Root category/{category.name}</option>
                                             })
                                         }
                                     </select>
                                 </div>
                             </div>
                             <div className="form-group">
-                                <label className="col-md-2 control-label">品类名称</label>
-                                <div className="col-md-5">
-                                    <input type="text" className="form-control" 
-                                        placeholder="请输入品类名称"
-                                        name="categoryName"
-                                        value={this.state.name}
-                                        onChange={(e) => this.onValueChange(e)}/>
+                                <label className="col-sm-2 control-label">Category name</label>
+                                <div className="col-sm-5">
+                                    <input type="text"
+                                           className="form-control"
+                                           name="categoryName"
+                                           value={this.state.name}
+                                           onChange={(e) => this.onValueChange(e)}
+                                           placeholder="Please enter the category name"/>
                                 </div>
                             </div>
                             <div className="form-group">
-                                <div className="col-md-offset-2 col-md-10">
-                                    <button type="submit" className="btn btn-primary" 
-                                        onClick={(e) => {this.onSubmit(e)}}>提交</button>
+                                <div className="col-sm-offset-2 col-sm-10">
+                                    <button className="btn btn-primary" onClick={(e) => {this.onSubmit(e)}}>submit</button>
                                 </div>
                             </div>
                         </div>
